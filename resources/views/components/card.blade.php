@@ -1,12 +1,14 @@
 <div class="anime-card card-hover group">
-    <img src="{{ $item->getMedia('posters')[0]->getUrl() }}" alt="Stellar Transformation" class="w-full h-72 object-cover">
+    <img src="{{ $item->getMedia('cover_images')[0]->getUrl() }}" alt="Stellar Transformation"
+        class="w-full h-72 object-cover">
     <div class="play-overlay">
         <div class="bg-purple-600 rounded-full p-3">
             <i class="fas fa-play text-white text-lg"></i>
         </div>
     </div>
     <div class="p-4 bg-gray-900 h-42 flex flex-col">
-        <h3 class="font-bold text-lg mb-2">{{ $item->name }}</h3>
+        <h3 class="font-bold text-lg mb-2">{{ $item->title }}</h3>
+        <small class="font-bold text-sm mb-2">{{ $item->title_native }}</small>
         <p class="text-sm text-gray-400 mb-4 flex-grow overflow-auto text-clip">
             {{ str()->of($item->description)->limit(150) }}</p>
         <a href="#"

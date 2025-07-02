@@ -39,7 +39,7 @@
     }
 
     .bg-hero {
-        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/public/storage/bg.png');
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/public/images/hero-bg.png');
         background-size: cover;
         background-position: center;
     }

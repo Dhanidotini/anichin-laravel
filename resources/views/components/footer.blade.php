@@ -2,9 +2,21 @@
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
-                <img src="https://anichin.club/wp-content/uploads/2025/02/ANICHIN.CARE_.png" alt="Anichin Logo" class="h-12 mb-4">
+                <a href="/" class="text-white text-2xl font-bold">
+                    @if (setting('app.visibility.logo', config('app.visibility.logo')) &&
+                            setting('app.visibility.name', config('app.visibility.name')))
+                        <img src="{{ setting('app.logo') }}" alt="Anichin Logo" class="h-12" />
+                        <span class="mb-4">{{ setting('app.name', config('app.name')) }}</span>
+                    @elseif (setting('app.visibility.logo', config('app.visibility.logo')))
+                        <img src="{{ setting('app.logo') }}" alt="Anichin Logo" class="h-12 mb-4">
+                    @elseif (setting('app.visibility.name', config('app.visibility.name')))
+                        {{ setting('app.name', config('app.name')) }}
+                    @else
+                        Laravel
+                    @endif
+                </a>
                 <p class="text-gray-400 mb-4">
-                    Nonton Donghua Subtitle Indonesia Terbaru & Terlengkap
+                    {{ setting('app.description', config('app.description')) }}
                 </p>
                 <div class="flex space-x-4">
                     <a href="#" class="text-gray-400 hover:text-white">
@@ -53,7 +65,8 @@
                     Untuk iklan: <span class="text-accent">ADM.ANICHIN@GMAIL.COM</span>
                 </p>
                 <h3 class="text-lg font-bold mb-4 text-purple-400">Dukung Kami</h3>
-                <a href="#" class="inline-block bg-purple-700 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded transition-colors">
+                <a href="#"
+                    class="inline-block bg-purple-700 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded transition-colors">
                     <i class="fas fa-heart mr-1"></i> Trakteer
                 </a>
             </div>
@@ -62,7 +75,8 @@
         <div class="border-t border-gray-700 pt-6 text-center text-gray-500">
             <p>Copyright © 2025 Anichin. All Rights Reserved</p>
             <p class="mt-2 text-sm">
-                Disclaimer: This site <span class="italic">Anichin</span> does not store any files on its server. All contents are provided by non-affiliated third parties.
+                Disclaimer: This site <span class="italic">Anichin</span> does not store any files on its server. All
+                contents are provided by non-affiliated third parties.
             </p>
         </div>
     </div>

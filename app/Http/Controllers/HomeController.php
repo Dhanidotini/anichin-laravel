@@ -13,10 +13,20 @@ class HomeController extends Controller
     public function index()
     {
         // $items = Country::where('name', 'China')->first()->series;
-        $items = Series::where('is_published', true)
-            ->with(['author', 'studios', 'genres', 'media'])
+        $featured = Series::where('is_published', true)
+            ->where('is_featured', true)
+            ->with('country', 'genres')
             ->orderBy('published_at', 'desc')
             ->paginate(4);
-        return view("home", compact('items'));
+        $latest = Series::where('is_published', true)
+            ->where('status', StatusSeries::Ongoing)
+            ->orderBy('published_at', 'desc')
+            ->paginate(4);
+        $completed = Series::where('is_published', true)
+            ->where('status', StatusSeries::Completed)
+            ->with('media', 'genres', 'studios')
+            ->orderBy('published_at', 'desc')
+            ->paginate(4);
+        return view("home", compact('featured', 'latest', 'completed'));
     }
 }

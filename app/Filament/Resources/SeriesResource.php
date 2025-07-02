@@ -63,7 +63,7 @@ class SeriesResource extends Resource
                                     TextInput::make(name: 'title')
                                         ->required()
                                         ->markAsRequired(false)
-                                        ->debounce()
+                                        ->live(true)
                                         ->afterStateUpdated(fn(Set $set, string $state) => ($set('slug', str($state)->slug()))),
                                     TextInput::make(name: 'native_title')
                                         ->maxLength(length: 255),
@@ -79,6 +79,23 @@ class SeriesResource extends Resource
                     Grid::make()
                         ->columns(1)
                         ->schema([
+                            Section::make('Media Section')
+                                ->columns(1)
+                                ->collapsed()
+                                ->schema([
+                                    SpatieMediaLibraryFileUpload::make(name: 'cover_image')
+                                        ->collection('cover_images')
+                                        ->image()
+                                        ->maxSize(1024) // 1MB
+                                        ->acceptedFileTypes(['image/*'])
+                                        ->label('Cover Image'),
+                                    SpatieMediaLibraryFileUpload::make(name: 'banner_image')
+                                        ->collection('banner_images')
+                                        ->image()
+                                        ->maxSize(2048) // 2MB
+                                        ->acceptedFileTypes(['image/*'])
+                                        ->label('Banner Image'),
+                                ]),
                             Section::make('Information Section')
                                 ->schema([
                                     Grid::make()
@@ -125,8 +142,6 @@ class SeriesResource extends Resource
         return $table
             ->striped()
             ->columns([
-                ToggleColumn::make('is_published')
-                    ->label('Published'),
                 TextColumn::make('title')
                     ->searchable(),
                 TextColumn::make('slug')
@@ -151,6 +166,11 @@ class SeriesResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                ToggleColumn::make('is_published')
+                    ->label('Published')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                ToggleColumn::make('is_featured')
+                    ->label('Featured'),
             ])
             ->filters([
                 TrashedFilter::make(),

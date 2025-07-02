@@ -14,7 +14,7 @@ class CreateSeries extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['slug'] = Str::slug($data['name']);
+        $data['slug'] = Str::slug($data['title']);
         $data['author_id'] = auth()->user()->id;
 
         if ($data['is_published']) {
