@@ -6,6 +6,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
+use App\Filament\Pages\Settings;
 use Filament\Support\Colors\Color;
 use Filament\Http\Middleware\Authenticate;
 use Illuminate\Session\Middleware\StartSession;
@@ -58,7 +59,7 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 FilamentSettingsPlugin::make()
                     ->pages([
-                        \App\Filament\Pages\Settings::class,
+                        Settings::class,
                     ])
             ]);
     }
