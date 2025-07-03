@@ -15,6 +15,11 @@ use Outerweb\FilamentSettings\Filament\Pages\Settings as BaseSettings;
 
 class Settings extends BaseSettings
 {
+    public function getTitle(): string
+    {
+        return 'Application Settings';
+    }
+
     public function schema(): array|Closure
     {
         return [
@@ -88,11 +93,4 @@ class Settings extends BaseSettings
                 ])
         ];
     }
-
-    public static function canAccess(): bool
-    {
-        return true;
-    }
-
-
 }

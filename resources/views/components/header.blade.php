@@ -1,97 +1,67 @@
 @use('App\Enums\StatusSeries')
 
-<header class="bg-dark sticky top-0 z-50 shadow-lg">
+<header class="bg-dark/95 backdrop-blur-md sticky top-0 z-50 border-b border-white/10 transition-all duration-300">
     <div class="container mx-auto px-4">
-        <div class="flex flex-row justify-between py-4 lg:flex-row lg:items-center ">
-            <div class="flex items-center">
-                {{-- Logo or Site Name --}}
-                <a href="#" class="text-white text-2xl font-bold">
-                    @if (setting('app.visibility.logo', config('app.visibility.logo')) &&
-                            setting('app.visibility.name', config('app.visibility.name')))
-                        <img src="{{ setting('app.logo') }}" alt="Logo" class="h-10 inline-block mr-2">
-                        <span class="mb-4">{{ setting('app.name', config('app.name')) }}</span>
-                    @elseif (setting('app.visibility.logo', config('app.visibility.logo')))
-                        <img src="{{ setting('app.logo') }}" alt="Logo" class="h-10 inline-block mr-2">
-                    @elseif (setting('app.visibility.name', config('app.visibility.name')))
-                        {{ setting('app.name', config('app.name')) }}
-                    @else
-                        Laravel
-                    @endif
-                </a>
-            </div>
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                @if (setting('app.visibility.logo', config('app.visibility.logo')))
+                    <img src="{{ setting('app.logo') }}" alt="Logo"
+                        class="h-9 w-9 rounded-lg transition-transform duration-300 group-hover:scale-105">
+                @endif
+                <span class="text-xl font-bold text-white">{{ setting('app.name', config('app.name')) }}</span>
+            </a>
 
             <!-- Desktop Navigation -->
-            <nav class="hidden lg:block">
-                <ul class="flex space-x-4">
-                    <li><a href="#" class="nav-link">Home</a></li>
-                    <li class="relative group mt-0">
-                        <a href="#" class="nav-link flex items-center">Series List <i
-                                class="fas fa-chevron-down ml-1 text-xs"></i></a>
-                        <div
-                            class="absolute left-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 text-gray-200 overflow-hidden">
-                            @forelse (StatusSeries::cases() as $status)
-                                <a href="#"
-                                    class="block px-4 py-3 hover:bg-purple-900 nav-link">{{ $status->getLabel() }}</a>
-                            @empty
-                                <a href="#" class="block px-4 py-3 hover:bg-purple-900 nav-link">No Series
-                                    Available</a>
-                            @endforelse
-                        </div>
-                    </li>
-                    <li><a href="#" class="nav-link">Bookmark</a></li>
-                    {{-- <li><a href="#" class="nav-link">Schedule</a></li>
-                    <li><a href="#" class="nav-link">Riwayat Menonton</a></li> --}}
-                </ul>
+            <nav class="hidden lg:flex items-center gap-6">
+                <a href="#"
+                    class="text-gray-300 hover:text-white px-3 py-2 rounded-md transition-colors font-medium">
+                    Home
+                </a>
+                <div class="relative group">
+                    <button
+                        class="text-gray-300 hover:text-white px-3 py-2 rounded-md transition-colors font-medium flex items-center gap-1">
+                        Series
+                        <svg class="w-4 h-4 mt-0.5 transform transition-transform" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div
+                        class="absolute top-full left-0 w-48 mt-1 bg-gray-800/95 backdrop-blur-md rounded-lg p-2 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                        @foreach (StatusSeries::cases() as $status)
+                            <a href="#"
+                                class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 rounded-md transition-colors">
+                                {{ $status->getLabel() }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
             </nav>
 
-            <!-- Search for Desktop -->
-            <div class="hidden lg:block">
+            <!-- Right Section -->
+            <div class="flex items-center gap-4">
                 <div class="relative">
-                    <input type="text" placeholder="Cari..."
-                        class="bg-gray-800 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    <i class="fas fa-search absolute left-3 top-2.5 text-gray-400"></i>
+                    <input type="text" placeholder="Search..."
+                        class="w-48 px-4 pl-10 py-2 bg-white/5 rounded-full border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-300 transition-all">
+                    <svg class="w-4 h-4 absolute left-3 top-3 text-gray-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
                 </div>
-            </div>
 
-            <!-- Mobile Menu Button -->
-            <div class="lg:hidden flex items-center">
-                <button id="mobile-menu-button" class="ml-4 text-gray-300 hover:text-white">
-                    <i class="fas fa-bars text-2xl"></i>
+                <!-- Mobile Menu -->
+                <button
+                    class="lg:hidden p-2 text-gray-300 hover:text-white rounded-md hover:bg-white/5 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
                 </button>
             </div>
         </div>
-
-        <!-- Mobile Navigation -->
-        <nav id="mobile-navigation" class="hidden lg:hidden py-4 border-t border-gray-700 mt-4">
-            <ul class="space-y-2">
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-800 rounded">Home</a></li>
-                <li class="relative">
-                    <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-800 rounded">
-                        <span>Series List</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="ml-4 mt-2 space-y-1 hidden">
-                        @forelse (StatusSeries::cases() as $status)
-                            <a href="#"
-                                class="block px-4 py-2 text-sm hover:bg-gray-700 rounded">{{ $status->getLabel() }}</a>
-                        @empty
-                        @endforelse
-                    </div>
-                </li>
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-800 rounded">Bookmark</a></li>
-                {{-- <li><a href="#" class="block px-4 py-2 hover:bg-gray-800 rounded">Schedule</a></li>
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-800 rounded">Riwayat Menonton</a></li> --}}
-                <li>
-                    <!-- Search for Mobile -->
-                    <div class="lg:hidden w-full mt-2">
-                        <div class="relative">
-                            <input type="text" placeholder="Cari..."
-                                class="w-full bg-gray-800 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </nav>
     </div>
 </header>

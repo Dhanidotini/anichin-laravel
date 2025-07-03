@@ -1,21 +1,26 @@
-<!-- Hero Section -->
-<section class="bg-hero py-48 h-svh">
-    <div class="container mx-auto px-4">
-        <div class="max-w-2xl mx-auto text-center">
-            <div class="bg-gradient-to-r from-purple-900 to-pink-700 inline-block rounded-xl px-3 py-1 mb-4 text-sm">
-                <i class="fas fa-shield-alt mr-2"></i> Website Resmi
-                {{ setting('app.name', env('app.name')) }}
+<div x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)" class="relative h-[70vh] bg-gray-900 overflow-hidden">
+    <!-- Background image with gradient overlay -->
+    <div class="absolute inset-0 z-0">
+        <img src="{{ asset('images/hero-bg.png') }}" alt="Anime Background" class="w-full h-full object-cover opacity-50">
+        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 h-full flex items-center">
+        <div class="container mx-auto px-4 text-center">
+            <div x-show="show" x-transition:enter="transition ease-out duration-500"
+                x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0">
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in-up">
+                    Jelajahi Dunia Anime
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl mx-auto">
+                    Temukan koleksi anime terlengkap dengan rating tertinggi. Mulai petualangan menontonmu sekarang!
+                </p>
+                <a href="#trending"
+                    class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                    Mulai Menjelajah
+                </a>
             </div>
-            <h1 class="text-4xl md:text-5xl font-bold mb-6">
-                {{ setting('app.description', config('app.description')) }}</h1>
-            <p class="text-xl mb-8">Website asli {{ setting('app.name', config('app.name')) }} hanya ini, selain website
-                ini
-                adalah website
-                palsu.</p>
-            <a href="#"
-                class="inline-block bg-accent hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105">
-                Tonton sekarang <i class="fas fa-arrow-right ml-2"></i>
-            </a>
         </div>
     </div>
-</section>
+</div>
